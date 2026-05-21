@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Niaz Morshed Khan | Premium Portfolio</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    
+    <!-- Google Font: Hind Siliguri & Inter for global aesthetics -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Inter', 'Hind Siliguri', sans-serif;
+            background-color: #0b0f19;
+            color: #f3f4f6;
+            overflow-x: hidden;
+        }
+        
+        /* Glassmorphism Classes */
+        .glass-nav {
+            background: rgba(11, 15, 25, 0.75);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: #3a86ff;
+            box-shadow: 0 20px 40px -15px rgba(58, 134, 255, 0.3);
+            transform: translateY(-5px);
+        }
+
+        /* Portfolio Long Image Hover Scroll Effect */
+        .portfolio-img-container {
+            position: relative;
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+        .portfolio-scroll-img {
+            width: 100%;
+            height: auto;
+            absolute: top 0 left 0;
+            transition: transform 4s ease-in-out;
+        }
+        .portfolio-img-container:hover .portfolio-scroll-img {
+            transform: translateY(calc(-100% + 250px));
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b0f19;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3a86ff;
+            border-radius: 10px;
+        }
+
+        /* Scroll Reveal Utility */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-[#3a86ff] selection:text-white">
+
+    <!-- Ambient Background Glows -->
+    <div class="fixed top-[-20%] left-[-10%] w-[600px] h-[600px] rounded-full bg-[#3a86ff]/10 blur-[150px] pointer-events-none z-0"></div>
+    <div class="fixed bottom-[-10%] right-[-10%] w-[500px] h-[500px] rounded-full bg-purple-600/10 blur-[130px] pointer-events-none z-0"></div>
+
+    <!-- ================= NAVBAR ================= -->
+    <header class="fixed top-0 left-0 w-full glass-nav z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="#home" class="flex items-center gap-3">
+                <img id="nav-logo" src="" alt="NMK Digital" class="h-10 w-auto object-contain">
+                <span id="nav-agency-name" class="font-bold text-lg tracking-wider text-white hidden sm:block"></span>
+            </a>
+            
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center gap-8 font-medium text-sm tracking-wide text-gray-300">
+                <a href="#home" class="hover:text-[#3a86ff] transition-colors">Home</a>
+                <a href="#about" class="hover:text-[#3a86ff] transition-colors">About</a>
+                <a href="#services" class="hover:text-[#3a86ff] transition-colors">Services</a>
+                <a href="#portfolio" class="hover:text-[#3a86ff] transition-colors">Portfolios</a>
+                <a href="#carousel" class="hover:text-[#3a86ff] transition-colors">Campaigns</a>
+                <a href="#contact" class="hover:text-[#3a86ff] transition-colors">Contact</a>
+            </nav>
+
+            <div class="hidden md:block">
+                <a href="#contact" class="bg-[#3a86ff] hover:bg-[#3a86ff]/90 text-white font-semibold text-sm px-6 h-11 flex items-center justify-center rounded-full shadow-lg shadow-[#3a86ff]/20 transition-all duration-300 transform hover:scale-105">Let's Talk</a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-2xl">
+                <i class="fa-solid fa-bars-staggered"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Dropout Menu -->
+        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-[#0b0f19]/95 backdrop-blur-xl border-b border-white/5 py-6 px-6 flex flex-col gap-4 text-center font-medium shadow-xl">
+            <a href="#home" class="mobile-link py-2 text-gray-300 hover:text-[#3a86ff]">Home</a>
+            <a href="#about" class="mobile-link py-2 text-gray-300 hover:text-[#3a86ff]">About</a>
+            <a href="#services" class="mobile-link py-2 text-gray-300 hover:text-[#3a86ff]">Services</a>
+            <a href="#portfolio" class="mobile-link py-2 text-gray-300 hover:text-[#3a86ff]">Portfolios</a>
+            <a href="#carousel" class="mobile-link py-2 text-gray-300 hover:text-[#3a86ff]">Campaigns</a>
+            <a href="#contact" class="mobile-link py-2 text-gray-300 hover:text-[#3a86ff]">Contact</a>
+        </div>
+    </header>
+
+    <!-- ================= HERO SECTION ================= -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center pt-24 overflow-hidden z-10 max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center w-full">
+            <div class="lg:col-span-7 flex flex-col justify-center text-center lg:text-left">
+                <div class="inline-flex items-center gap-2 bg-[#3a86ff]/10 border border-[#3a86ff]/20 px-4 py-2 rounded-full text-[#3a86ff] font-semibold text-xs uppercase tracking-widest mx-auto lg:mx-0 w-fit mb-6">
+                    <span class="w-2 h-2 rounded-full bg-[#3a86ff] animate-ping"></span> Available for Projects
+                </div>
+                <h1 class="text-4xl sm:text-5xl xl:text-6xl font-extrabold tracking-tight text-white mb-4 leading-tight">
+                    Hi, I'm <span id="hero-name" class="text-transparent bg-clip-text bg-gradient-to-r from-[#3a86ff] to-purple-500"></span>
+                </h1>
+                <h2 class="text-xl sm:text-2xl font-semibold text-gray-400 mb-6">
+                    Expert in <span id="typing-text" class="text-white border-r-2 border-[#3a86ff] pr-1"></span>
+                </h2>
+                <p id="hero-about" class="text-gray-400 text-base sm:text-lg max-w-xl mx-auto lg:mx-0 mb-8 leading-relaxed"></p>
+                
+                <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-10">
+                    <a href="#portfolio" class="w-full sm:w-auto bg-[#3a86ff] hover:bg-[#3a86ff]/90 text-white font-semibold px-8 py-4 rounded-full shadow-lg shadow-[#3a86ff]/20 text-center transition-all duration-300 hover:-translate-y-0.5">View My Work</a>
+                    <a href="#contact" class="w-full sm:w-auto bg-white/5 hover:bg-white/10 border border-white/10 font-semibold px-8 py-4 rounded-full text-center transition-all duration-300 hover:-translate-y-0.5">Contact Me</a>
+                </div>
+
+                <!-- Hero Social Links -->
+                <div class="flex items-center justify-center lg:justify-start gap-4 text-xl" id="hero-socials">
+                    <!-- Dynamic Generation -->
+                </div>
+            </div>
+            
+            <div class="lg:col-span-5 flex justify-center relative">
+                <div class="w-72 h-72 sm:w-96 sm:h-96 rounded-[2rem] bg-gradient-to-tr from-[#3a86ff] to-purple-600 p-[3px] rotate-3 hover:rotate-0 transition-transform duration-500 shadow-2xl shadow-[#3a86ff]/10">
+                    <div class="w-full h-full bg-[#0b0f19] rounded-[calc(2rem-3px)] overflow-hidden">
+                        <img id="hero-avatar" src="" alt="Niaz Morshed Khan" class="w-full h-full object-cover scale-105 hover:scale-100 transition-transform duration-500">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= ABOUT SECTION ================= -->
+    <section id="about" class="py-24 max-w-7xl mx-auto px-6 reveal">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl sm:text-4xl font-extrabold mb-4">About Personal Brand</h2>
+            <div class="w-16 h-1 bg-[#3a86ff] mx-auto rounded-full"></div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="glass-card p-8 sm:p-10 rounded-2xl">
+                <h3 class="text-2xl font-bold mb-4 text-[#3a86ff]">Who I Am</h3>
+                <p id="about-p1" class="text-gray-300 leading-relaxed mb-6"></p>
+                <p id="about-p2" class="text-gray-400 leading-relaxed"></p>
+            </div>
+
+            <div>
+                <h3 class="text-2xl font-bold mb-6">Core Competencies</h3>
+                <div class="space-y-5" id="skills-container">
+                    <!-- Dynamic Skill Bars -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= SERVICES SECTION ================= -->
+    <section id="services" class="py-24 max-w-7xl mx-auto px-6 reveal">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl sm:text-4xl font-extrabold mb-4">Premium Services</h2>
+            <div class="w-16 h-1 bg-[#3a86ff] mx-auto rounded-full"></div>
+            <p class="text-gray-400 mt-4 max-w-md mx-auto text-sm">High-impact marketing systems optimized for hyper-growth and real conversion metrics.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="services-container">
+            <!-- Dynamic Service Cards -->
+        </div>
+    </section>
+
+    <!-- ================= PORTFOLIO SECTION ================= -->
+    <section id="portfolio" class="py-24 max-w-7xl mx-auto px-6 reveal">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl sm:text-4xl font-extrabold mb-4">Case Studies & Results</h2>
+            <div class="w-16 h-1 bg-[#3a86ff] mx-auto rounded-full"></div>
+            <p class="text-gray-400 mt-4 max-w-md mx-auto text-sm">Hover over images to scroll and audit live performance metrics and dash updates.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="portfolio-container">
+            <!-- Dynamic Portfolio Cards -->
+        </div>
+    </section>
+
+    <!-- ================= CAMPAIGN CAROUSEL SECTION ================= -->
+    <section id="carousel" class="py-24 max-w-7xl mx-auto px-6 reveal">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl sm:text-4xl font-extrabold mb-4">Influencer Activation Galleries</h2>
+            <div class="w-16 h-1 bg-[#3a86ff] mx-auto rounded-full"></div>
+        </div>
+
+        <div class="space-y-16" id="carousel-brand-containers">
+            <!-- Dynamic Carousels per Brand will insert here -->
+        </div>
+    </section>
+
+    <!-- ================= CONTACT SECTION ================= -->
+    <section id="contact" class="py-24 max-w-7xl mx-auto px-6 reveal">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl sm:text-4xl font-extrabold mb-4">Let's Secure Conversions</h2>
+            <div class="w-16 h-1 bg-[#3a86ff] mx-auto rounded-full"></div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+            <!-- Contact Meta Info -->
+            <div class="lg:col-span-5 space-y-6">
+                <div class="glass-card p-6 rounded-xl flex items-center gap-5">
+                    <div class="w-12 h-12 rounded-lg bg-[#3a86ff]/10 flex items-center justify-center text-[#3a86ff] text-xl">
+                        <i class="fa-solid fa-envelope"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-gray-400 uppercase font-semibold">Email Me</p>
+                        <a id="info-email" href="" class="text-sm font-medium hover:text-[#3a86ff]"></a>
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl flex items-center gap-5">
+                    <div class="w-12 h-12 rounded-lg bg-green-500/10 flex items-center justify-center text-green-500 text-xl">
+                        <i class="fa-solid fa-phone"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-gray-400 uppercase font-semibold">Call / WhatsApp</p>
+                        <a id="info-phone" href="" class="text-sm font-medium hover:text-green-500"></a>
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl flex items-center gap-5">
+                    <div class="w-12 h-12 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-500 text-xl">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-gray-400 uppercase font-semibold">Location</p>
+                        <p id="info-location" class="text-sm font-medium text-gray-200"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Form -->
+            <div class="lg:col-span-7">
+                <form id="contact-form" class="glass-card p-8 rounded-2xl space-y-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label class="text-xs font-semibold text-gray-400 uppercase">Full Name</label>
+                            <input type="text" name="name" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#3a86ff] transition-colors text-white">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-xs font-semibold text-gray-400 uppercase">Phone Number</label>
+                            <input type="tel" name="phone" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#3a86ff] transition-colors text-white">
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-xs font-semibold text-gray-400 uppercase">Email Address</label>
+                        <input type="email" name="email" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#3a86ff] transition-colors text-white">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-xs font-semibold text-gray-400 uppercase">Project Architecture Details</label>
+                        <textarea name="message" rows="4" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#3a86ff] transition-colors text-white resize-none"></textarea>
+                    </div>
+                    <button type="submit" id="submit-btn" class="w-full bg-gradient-to-r from-[#3a86ff] to-blue-600 hover:from-blue-600 hover:to-[#3a86ff] text-white font-semibold text-sm py-4 rounded-xl shadow-lg transition-all duration-300 transform active:scale-[0.98]">
+                        Transmit Message <i class="fa-solid fa-paper-plane ml-2"></i>
+                    </button>
+                    <p id="form-status" class="text-center text-xs mt-2 font-medium hidden"></p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= GOOGLE MAP SECTION ================= -->
+    <section class="w-full h-96 relative border-t border-white/5">
+        <iframe id="google-map" src="" class="w-full h-full grayscale invert opacity-60 contrast-125" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="bg-[#070a12] py-8 border-t border-white/5 text-center text-xs text-gray-500">
+        <p>&copy; 2026 <span id="footer-agency" class="text-gray-400 font-semibold"></span>. Designed to Premium Specifications.</p>
+    </footer>
+
+
+    <!-- ================= DYNAMIC DATA ENGINE & LOGIC ================= -->
+    <script>
+        // CENTRALIZED CONFIGURATION VARIABLES FOR EASY MANAGEMENT
+        const CONFIG = {
+            profile: {
+                name: "Niaz Morshed Khan",
+                agencyName: "NMK Digital",
+                avatarUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgaCIwXpbqXUCL4gsd7W9INJPax2YtPAsRRimXIhMKsH9YKoQAyDPp58t_kmg54SEiCkeskbdPKuxFWrHK7GoxmCYmHPCg6aQOf7plL-Q0wtZsZ8PGZqgoGKDINRdqZMywuN1Os7l9juY-d53uOU5u1rLCoc_IQS2fq9Wiv3wzz8_qyGuRdkPQVhOT3Jbo/s320/%233230C1_20251130_201154_0000.png",
+                logoUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjN9cM6h9W6cSeArw5keni4LhyphenhyphenVpMGc3qceVjZYsslgVEwYQ6-Vx9u34Gg5NxaIkVmNWiyzg_XEi_mpKNYdFseMsNBaJ9VAFFQGOOztbNRBXiZbbgta55Yd3nDiNIfSfdqnkmQBmAKT93mrwcG_e4pbnAcdX6Jb3jwEI-egOn_s_cm9zlnSBSiqJU7lWQA/s320/NMK.png",
+                email: "freelance.niaz@gmail.com",
+                phone: "01779657229",
+                location: "Mirzagonj, Patuakhali, Bangladesh",
+                aboutHero: "Driving sustainable ROAS and hyper-targeted lead architectures. Specialized in engineering high-performing paid conversion funnels and integrated micro-influencer management frameworks.",
+                aboutPara1: "I am a digital growth architect deploying elite performance marketing across Facebook, Instagram, and Google ecosystems. My frameworks prioritize analytical auditing over guesswork.",
+                aboutPara2: "Through NMK Digital, I bridge enterprise-level user acquisition pipelines with structured multi-channel social deployment to predictably amplify direct-response brand revenue."
+            },
+            skills: [
+                { name: "Meta Paid Ads Ecosystem", level: "98%" },
+                { name: "Google Conversion Funnels", level: "92%" },
+                { name: "Influencer Campaign Architecture", level: "95%" },
+                { name: "Social Media Monetization Systems", level: "90%" }
+            ],
+            socials: [
+                { icon: "fa-brands fa-linkedin-in", url: "https://linkedin.com", color: "hover:text-blue-500" },
+                { icon: "fa-brands fa-facebook-f", url: "https://facebook.com", color: "hover:text-blue-600" },
+                { icon: "fa-brands fa-instagram", url: "https://instagram.com", color: "hover:text-pink-500" }
+            ],
+            typingRoles: ["Facebook Ads Specialist", "Instagram Growth Engineer", "Influencer Strategist", "Google Ads Architect"],
+            services: [
+                { title: "Meta Ads Architecture", img: "https://blogger.googleusercontent.com/img/a/AVvXsEhoIqGZ-Y70vlro5_0SM3aA5FYP1K3QTxxq3WIUdLzV3hJL_GikSQEiVhVNKmzgDe-E61DuzVtWGcYYpredYjLwSp2HesdjCMTjAN8JjaqaDfSkrpKclEqZoKEmX3ENgUJGEZ10UfcKL-t5KJ9ZL8JrFgPLbs94lMFcPV7VmyQfQVrcluObUQI3uO0QZWw", desc: "Advanced pixel integration, custom lookalike parsing, and continuous asset iteration frameworks." },
+                { title: "Influencer Activations", img: "https://blogger.googleusercontent.com/img/a/AVvXsEiiio6_tMc7XaG9bG8eAcqQvSEerCIBaNcD60PJ8IFG0k9e0e_wf_J_qUbF_jLrNKat7KDV3CpCrWnG_KtlFhdVabCjJbGy0J71mp5BthFOe1MGLLNnuVQeHqNnD7kK6ulKvLKWslZOxn4MbWVunamlGCqg2Mbtg_dgbDbT7zEMLQjXPk-BxesfspSA3LI", desc: "End-to-end roster management, content mapping, and performance ROI tracking for direct response branding." },
+                { title: "Google Search Ecosystem", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjN9cM6h9W6cSeArw5keni4LhyphenhyphenVpMGc3qceVjZYsslgVEwYQ6-Vx9u34Gg5NxaIkVmNWiyzg_XEi_mpKNYdFseMsNBaJ9VAFFQGOOztbNRBXiZbbgta55Yd3nDiNIfSfdqnkmQBmAKT93mrwcG_e4pbnAcdX6Jb3jwEI-egOn_s_cm9zlnSBSiqJU7lWQA/s320/NMK.png", desc: "Intent-driven keyword clustering, dynamic responsive search configurations, and clean landing-page setup." },
+                { title: "Social Management Engine", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgaCIwXpbqXUCL4gsd7W9INJPax2YtPAsRRimXIhMKsH9YKoQAyDPp58t_kmg54SEiCkeskbdPKuxFWrHK7GoxmCYmHPCg6aQOf7plL-Q0wtZsZ8PGZqgoGKDINRdqZMywuN1Os7l9juY-d53uOU5u1rLCoc_IQS2fq9Wiv3wzz8_qyGuRdkPQVhOT3Jbo/s320/%233230C1_20251130_201154_0000.png", desc: "Data-backed corporate content calendar strategies built explicitly to maximize viral-coefficient algorithms." }
+            ],
+            portfolios: [
+                { title: "Influencer Pipeline Engine", type: "Influencer Marketing", img: "https://blogger.googleusercontent.com/img/a/AVvXsEjTzV86LAbQs20pHC9tRRktGui0anPp7Uvz_xAfoybIYGOijm4t6Ir4A4jobwQ7WH-qAx7r_H-zKmv85nrYGjP0TljSepwk6TI4Hw6o6cqQfdDz9snqtm6TCU5Nq_tBrUMJcjhqAMVT4EaMvZfFxtHOcIxhxuNAQq_N5yWRiD93mHA1T58J55CYORTZOas" },
+                { title: "Scale Matrix Alpha", type: "Meta Ads Performance", img: "https://blogger.googleusercontent.com/img/a/AVvXsEiOSJV9qNGL6XmUZU2VMGUmlFHqx1_vbYDB35CqApFlAt8itSfhxov3KAWnWFdQatda-HhqMWusWSxAKlKxdSDOypnrPhAW1hGHPdWuVdVDxZcPqR5L2sZe94yWRd1nuV1hNnfMCuQIhJgZ7puOHjQm3ugQX96IxOmKA2te0HJyqb8yrqGFv9g7TAj-Mm4=w225-h139" },
+                { title: "ROAS Maximization Beta", type: "Meta Ads Performance", img: "https://blogger.googleusercontent.com/img/a/AVvXsEgrxnuF92PZtbwT7m8iEEzeMNf80DhO2ZYA17pON-Y21gynYgtnzxmFvZPLUcgupP-AHx4RhnLDYBoqeUu2c6jw6HMHaQ4IZqSAwNdrJqtliAFOyOm1a1yxk8cgv0XPiLfKaJ2dLxqdU-f1palHISRhlgenitOVD3YJPufU7X3pPTEb5i3rvaYsRvIS9vQ=w237-h111" },
+                { title: "Target Array Scale Delta", type: "Meta Ads Performance", img: "https://blogger.googleusercontent.com/img/a/AVvXsEgap0VMfoMW2jQixqliPWBclfWGcMeVxByOVQmH3W0h8K20C0kdbKBn5fApKfmgvTdpLwGeKc-u_0Q7UGCVuoZCLg6Ny27jczDDtYOqDmoNNjp6IKXtxg6FS5ER_5djW_w3ge9YlTknWU2N8Dn3w3fbGkXFEegJ1rgglmgxoTSlbUfACt3auAzBogZrRTs=w219-h128" }
+            ],
+            brands: [
+                {
+                    name: "Outfitr (E-Bike Brand Influencer Activation)",
+                    images: [
+                        "https://blogger.googleusercontent.com/img/a/AVvXsEjE-OQm5uCpzxNYD32ET0Fyz3coqolLHw48zsbbfibf_2QevcQ_MjTwoLJWzOhd7Yo4BgYMXjTVtBceyptoGIr6vjJuRhMLF4TLMfFvLaWXefe0ViVltZXcdIXqmD9wlIV6UGJB3VkHUiqBj44Xx7thfc8Lt9cbCPBSXdeGMb7HEN-upgZ1ZCQSpL4jkAY",
+                        "https://blogger.googleusercontent.com/img/a/AVvXsEj7yIr3ON5AW7552VgTVoMWgb5Ob4IpPPpeZlnqyYbkDWvhhuUwjJUG3WMNBJ4wnIgTth4GsvhL1rt0FYJP102_bVxJ0bk-tbkEXttWrK_2PiAEyl7izRPVD5jE1kW07dKldkOwSqmJVcohj8iXhOfEt1K-ptYhJNP0W2ifVtwFX9C3lOqBl6tetPBV0x0",
+                        "https://blogger.googleusercontent.com/img/a/AVvXsEjnuktze69057IAopqvmqpNy083kHslO0YgkIzgeB4jAwpJ_URkQaPk89RP_M1TBz1x69bEact3zdLAHpvWjIv_rAhhf9WNkfUa0S25P17oVydjOm3ciO70q38SN9szpEFvFvVUEEOJRQ6jbrfekJJFWFWB7AxOMmXKOeIFeIdw2f7NyPu-7t3Kq8xS2Zs",
+                        "https://blogger.googleusercontent.com/img/a/AVvXsEgL2QwYPHyNOt6ihRedDnnDVlUgA3DwWXWwEGGX6yIgV8DgzfxXJw_DdvjF7-hl3XMKKxiFnsXqkD5XjUWhWDX4WK7qTzr0XwDSXVD9uomzX-mGe-mqKjgG5vR7SwUBL2Zhq-K_JrwB7MpeMfyDtPtJMEYSt6uFACUar5J9BwDG1JSRNX1pqY8ZAP4Rsqk"
+                    ]
+                },
+                {
+                    name: "Growing MONAI (Baby Monitor Camera Activation)",
+                    images: [
+                        "https://blogger.googleusercontent.com/img/a/AVvXsEiO5z_P6_vqyQMGIMfX6q_CeWIp-FRUM_pRkQGLsL6-HIZuArBUtL0J7XtWJZxfG5ysLd2bGcJOj08ZgIHIQNQPgMbvnnVt6a-QYVgvh7xqRAncKrV7vEoO4n6WmH5aZhj7FEH6RyV4U3owCxvxROudRrNDycOEx7PGFK7hrCB3eapXVzJK0ENVqJmINnc",
+                        "https://blogger.googleusercontent.com/img/a/AVvXsEhhhzxbTBeW-RatqTA7Y6LHwlAJxR3qBnMWGq9dcQIOcQAkdMdzUzh0xwJOcUjYaTana3vSmanWEfv7trD9q9RouVrb9GdJAq9Bz0yGPU2qO4iiSfnB3f33WhalgstWnGww7_hshWuMANNeR4LNIMPZ-A__JyMdO5TEk80v4EcX5FBl28kFe_eN3qnS0KY"
+                    ]
+                }
+            ],
+            googleSheetScriptUrl: "YOUR_DEPLOYED_WEBAPP_URL_HERE", // এখানে আপনার Apps Script-এর Web App URL দিন
+            googleMapIFrameSrc: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d58994.06733221976!2d90.21980835!3d22.3676104!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30aab9b3ab1104e7%3A0xbd84d142b659c037!2sMirzaganj%20Upazila!5e0!3m2!1sen!2sbd!4v1710000000000!5m2!1sen!2sbd"
+        };
+
+        // --- DOM POPULATION ENGINE ---
+        document.addEventListener("DOMContentLoaded", () => {
+            // Identity Initialization
+            document.getElementById("nav-logo").src = CONFIG.profile.logoUrl;
+            document.getElementById("nav-agency-name").innerText = CONFIG.profile.agencyName;
+            document.getElementById("hero-name").innerText = CONFIG.profile.name;
+            document.getElementById("hero-about").innerText = CONFIG.profile.aboutHero;
+            document.getElementById("hero-avatar").src = CONFIG.profile.avatarUrl;
+            document.getElementById("footer-agency").innerText = CONFIG.profile.agencyName;
+
+            // About Initialization
+            document.getElementById("about-p1").innerText = CONFIG.profile.aboutPara1;
+            document.getElementById("about-p2").innerText = CONFIG.profile.aboutPara2;
+
+            // Contact Elements Initialization
+            document.getElementById("info-email").innerText = CONFIG.profile.email;
+            document.getElementById("info-email").href = `mailto:${CONFIG.profile.email}`;
+            document.getElementById("info-phone").innerText = CONFIG.profile.phone;
+            document.getElementById("info-phone").href = `tel:${CONFIG.profile.phone}`;
+            document.getElementById("info-location").innerText = CONFIG.profile.location;
+            document.getElementById("google-map").src = CONFIG.googleMapIFrameSrc;
+
+            // Populate Socials
+            const socialContainer = document.getElementById("hero-socials");
+            CONFIG.socials.forEach(s => {
+                socialContainer.innerHTML += `<a href="${s.url}" target="_blank" class="text-gray-400 ${s.color} transition-colors"><i class="${s.icon}"></i></a>`;
+            });
+
+            // Populate Skills Setup
+            const skillsContainer = document.getElementById("skills-container");
+            CONFIG.skills.forEach(skill => {
+                skillsContainer.innerHTML += `
+                    <div class="space-y-2">
+                        <div class="flex justify-between text-sm font-medium">
+                            <span class="text-gray-300">${skill.name}</span>
+                            <span class="text-[#3a86ff]">${skill.level}</span>
+                        </div>
+                        <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden">
+                            <div class="h-full bg-gradient-to-r from-[#3a86ff] to-purple-500 rounded-full transition-all duration-1000" style="width: ${skill.level}"></div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Populate Services Render
+            const servicesContainer = document.getElementById("services-container");
+            CONFIG.services.forEach(ser => {
+                servicesContainer.innerHTML += `
+                    <div class="glass-card p-6 rounded-2xl flex flex-col h-full">
+                        <img src="${ser.img}" alt="${ser.title}" class="w-full h-40 object-cover rounded-xl mb-6 opacity-80 hover:opacity-100 transition-opacity">
+                        <h4 class="text-lg font-bold text-white mb-2">${ser.title}</h4>
+                        <p class="text-xs text-gray-400 leading-relaxed flex-grow">${ser.desc}</p>
+                    </div>
+                `;
+            });
+
+            // Populate Portfolio Framework
+            const portfolioContainer = document.getElementById("portfolio-container");
+            CONFIG.portfolios.forEach(p => {
+                portfolioContainer.innerHTML += `
+                    <div class="glass-card p-4 rounded-2xl">
+                        <div class="portfolio-img-container mb-4">
+                            <img src="${p.img}" alt="${p.title}" class="portfolio-scroll-img">
+                        </div>
+                        <p class="text-[10px] text-[#3a86ff] font-bold uppercase tracking-widest mb-1">${p.type}</p>
+                        <h4 class="text-base font-bold text-white mb-4">${p.title}</h4>
+                        <a href="${p.img}" target="_blank" class="inline-flex items-center text-xs font-semibold text-white/80 hover:text-[#3a86ff] gap-2 transition-colors">
+                            Audit View <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                        </a>
+                    </div>
+                `;
+            });
+
+            // Populate Multi-brand Carousel Interface
+            const brandContainer = document.getElementById("carousel-brand-containers");
+            CONFIG.brands.forEach((brand, idx) => {
+                let imagesHtml = '';
+                brand.images.forEach(img => {
+                    imagesHtml += `
+                        <div class="flex-none w-64 h-80 rounded-xl overflow-hidden border border-white/5 shadow-xl">
+                            <img src="${img}" class="w-full h-full object-cover" alt="Campaign Asset">
+                        </div>
+                    `;
+                });
+
+                brandContainer.innerHTML += `
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-semibold text-gray-300 flex items-center gap-2">
+                            <span class="w-1.5 h-4 bg-[#3a86ff] rounded-full"></span> ${brand.name}
+                        </h3>
+                        <div class="relative overflow-x-auto flex gap-6 pb-4 scrollbar-thin snap-x snap-mandatory">
+                            ${imagesHtml}
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Run Features Initialization
+            initTypingEffect();
+            initScrollReveal();
+            initNavigationLogic();
+            initFormSubmission();
+        });
+
+        // --- TYPING INTERACTION EFFECT ---
+        function initTypingEffect() {
+            const target = document.getElementById("typing-text");
+            let roleIdx = 0;
+            let charIdx = 0;
+            let isDeleting = false;
+
+            function type() {
+                let currentRole = CONFIG.typingRoles[roleIdx];
+                if (isDeleting) {
+                    target.innerText = currentRole.substring(0, charIdx - 1);
+                    charIdx--;
+                } else {
+                    target.innerText = currentRole.substring(0, charIdx + 1);
+                    charIdx++;
+                }
+
+                let speed = isDeleting ? 40 : 100;
+
+                if (!isDeleting && charIdx === currentRole.length) {
+                    speed = 2000; // Pause at end of word
+                    isDeleting = true;
+                } else if (isDeleting && charIdx === 0) {
+                    isDeleting = false;
+                    roleIdx = (roleIdx + 1) % CONFIG.typingRoles.length;
+                    speed = 500; // Pause before writing next word
+                }
+                setTimeout(type, speed);
+            }
+            type();
+        }
+
+        // --- SCROLL REVEAL TIMING UTILS ---
+        function initScrollReveal() {
+            const reveals = document.querySelectorAll('.reveal');
+            const checkReveal = () => {
+                reveals.forEach(r => {
+                    let windowHeight = window.innerHeight;
+                    let elementTop = r.getBoundingClientRect().top;
+                    if (elementTop < windowHeight - 100) {
+                        r.classList.add('active');
+                    }
+                });
+            };
+            window.addEventListener('scroll', checkReveal);
+            checkReveal(); // First run verification
+        }
+
+        // --- NAVIGATION MOBILE SYSTEM ---
+        function initNavigationLogic() {
+            const menuBtn = document.getElementById("menu-btn");
+            const mobileMenu = document.getElementById("mobile-menu");
+            const mobileLinks = document.querySelectorAll(".mobile-link");
+
+            menuBtn.addEventListener("click", () => {
+                mobileMenu.classList.toggle("hidden");
+            });
+
+            mobileLinks.forEach(link => {
+                link.addEventListener("click", () => {
+                    mobileMenu.classList.add("hidden");
+                });
+            });
+
+            // Smooth header state shifts
+            window.addEventListener("scroll", () => {
+                const header = document.querySelector("header");
+                if (window.scrollY > 50) {
+                    header.classList.add("py-2", "shadow-xl");
+                } else {
+                    header.classList.remove("py-2", "shadow-xl");
+                }
+            });
+        }
+
+        // --- GOOGLE SHEETS FORM INTERACTION ASYNC ---
+        function initFormSubmission() {
+            const form = document.getElementById("contact-form");
+            const status = document.getElementById("form-status");
+            const submitBtn = document.getElementById("submit-btn");
+
+            form.addEventListener("submit", async (e) => {
+                e.preventDefault();
+                
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = `Processing Secure Connection... <i class="fa-solid fa-spinner animate-spin ml-2"></i>`;
+                
+                status.classList.remove("hidden", "text-green-400", "text-red-400");
+                status.innerText = "";
+
+                const formData = {
+                    name: form.name.value,
+                    phone: form.phone.value,
+                    email: form.email.value,
+                    message: form.message.value
+                };
+
+                try {
+                    // Send Asynchronous Payload to Google Apps Script Endpoint
+                    const response = await fetch(CONFIG.googleSheetScriptUrl, {
+                        method: 'POST',
+                        mode: 'no-cors', // Bypasses standard CORS preflight architectures safely
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(formData)
+                    });
+
+                    status.classList.add("text-green-400");
+                    status.innerText = "✓ System verified. Transmission logged into Google Sheet.";
+                    form.reset();
+                } catch (error) {
+                    status.classList.add("text-red-400");
+                    status.innerText = "✕ Transmission Exception. Fallback to direct parameters.";
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = `Transmit Message <i class="fa-solid fa-paper-plane ml-2"></i>`;
+                }
+            });
+        }
+    </script>
+</body>
+</html>
